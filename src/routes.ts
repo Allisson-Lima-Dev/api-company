@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { PrismaClient } from "@prisma/client";
+import { Company } from "./entities/company";
 import { Project } from "./entities/project";
 interface user {
   name: string;
@@ -9,6 +11,7 @@ interface user {
   certifacateURL: string;
 }
 const router = Router();
+const prisma = new PrismaClient();
 
 router.post("/projects", (req, res) => {
   const projectItems = req.body as user;
@@ -25,6 +28,121 @@ router.post("/projects", (req, res) => {
 });
 router.get("/", (req, res) => {
   return res.status(200).send({ result: "Conseguiu guerreiro" });
+});
+
+router.get("/company", async (req, res) => {
+  const company = new Company("Neuralx");
+
+  const allCollaborators = await prisma.company.findMany();
+
+  res.status(200).send(allCollaborators);
+});
+
+router.post("/company", async (req, res) => {
+  const company = new Company("Hixx");
+  const { collaborator, job, salary } = req.body;
+
+  if (collaborator && job && salary) {
+    const result = await prisma.company.create({
+      data: {
+        collaborator,
+        job,
+        salary,
+      },
+    });
+    company.addCollaborator({
+      collaborator,
+      job,
+      salary,
+      date: new Date(),
+    });
+    return res.status(200).send({ result });
+  } else if (!collaborator && !job && !salary) {
+    return res.status(400).send({
+      required: "collaborator, job, salary",
+    });
+  } else if (!salary) {
+    return res.status(400).send({
+      error: "Salary required",
+    });
+  } else if (!job) {
+    res.status(400).send({
+      error: "Job required",
+    });
+  } else {
+    res.status(400).send({
+      error: "Collaborator required",
+    });
+  }
+});
+
+router.put("/company/:id", async (req, res) => {
+  const { collaborator, job, salary } = req.body;
+  const id = Number(req.params.id);
+
+  const checkId = await prisma.company.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  console.log({ id });
+
+  if (!id) {
+    return res.status(404).send({
+      error: "id required",
+    });
+  }
+
+  if (!checkId) {
+    return res.status(404).send({
+      error: "company not found",
+    });
+  }
+
+  const company = await prisma.company.update({
+    where: {
+      id,
+    },
+    data: {
+      collaborator,
+      job,
+      salary,
+    },
+  });
+
+  return res.status(200).send(company);
+});
+
+router.delete("/company/:id", async (req, res) => {
+  const id = Number(req.params.id);
+
+  const checkId = await prisma.company.findUnique({
+    where: {
+      id,
+    },
+  });
+  if (!id) {
+    return res.status(404).send({
+      error: "id required",
+    });
+  }
+
+  if (!checkId) {
+    return res.status(404).send({
+      error: "company not found",
+    });
+  }
+
+  const result = await prisma.company.delete({
+    where: {
+      id,
+    },
+  });
+
+  if (result) {
+    return res.status(200).send({ result: "success" });
+  }
 });
 
 export { router };
