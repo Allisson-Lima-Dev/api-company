@@ -27,7 +27,7 @@ router.post("/projects", (req, res) => {
   }
 });
 router.get("/", (req, res) => {
-  return res.status(200).send({ result: "Conseguiu guerreiro" });
+  return res.status(200).send({ version: "0.0.1", author: "Allisson Lima" });
 });
 
 router.get("/company", async (req, res) => {
