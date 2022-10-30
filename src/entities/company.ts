@@ -2,6 +2,7 @@ export class Collaborators {
   public collaborator: string;
   public job: string;
   public salary: string;
+  public date: any;
 
   constructor(props: Collaborators) {
     Object.assign(this, props);
@@ -15,7 +16,7 @@ export class Company {
 
   constructor(
     name: string,
-    collaborators: Collaborators[],
+    // collaborators: Collaborators[],
     nif_number?: string
   ) {
     this.nif_number = nif_number;
