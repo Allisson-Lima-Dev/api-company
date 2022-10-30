@@ -29,8 +29,10 @@ router.post("/projects", (req, res) => {
 router.get("/", (req, res) => {
   return res.status(200).send({ version: "0.0.1", author: "Allisson Lima" });
 });
-router.get("/api", (req, res) => {
-  return res.status(200).send({ result: "Deu certo" });
+router.get("/api", async (req, res) => {
+  const allCollaborators = await prisma.company.findMany();
+
+  return res.status(200).send(allCollaborators);
 });
 
 router.get("/company", async (req, res) => {
