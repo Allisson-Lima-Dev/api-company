@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/server.ts",
-    "staging": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "dev": "ts-node-dev src/server.ts"
   },
   "dependencies": {
