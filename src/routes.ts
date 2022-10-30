@@ -29,6 +29,9 @@ router.post("/projects", (req, res) => {
 router.get("/", (req, res) => {
   return res.status(200).send({ version: "0.0.1", author: "Allisson Lima" });
 });
+router.get("/api", (req, res) => {
+  return res.status(200).send({ result: "Deu certo" });
+});
 
 router.get("/company", async (req, res) => {
   const company = new Company("Neuralx");
