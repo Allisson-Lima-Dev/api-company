@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { Company } from "./entities/company";
 import { Project } from "./entities/project";
 interface user {
   name: string;
@@ -25,6 +26,28 @@ router.post("/projects", (req, res) => {
 });
 router.get("/", (req, res) => {
   return res.status(200).send({ result: "Conseguiu guerreiro" });
+});
+
+router.get("/company", (req, res) => {
+  const company = new Company("Neuralx", [
+    {
+      collaborator: "Allisson",
+      job: "Cofundador",
+      salary: "100000",
+    },
+    {
+      collaborator: "João",
+      job: "Gerente",
+      salary: "15000",
+    },
+  ]);
+  const owner = {
+    ...company,
+    newCompany: "Hixx",
+  };
+
+  res.status(200).send(owner);
+  console.log(owner.name);
 });
 
 export { router };
