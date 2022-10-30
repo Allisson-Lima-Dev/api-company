@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "name": "api-portfolio",
   "builds": [
     {
       "src": "./src/server.ts",
@@ -9,7 +10,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "./src/server.ts"
     }
   ]
 }
