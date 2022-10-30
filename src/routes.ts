@@ -29,25 +29,45 @@ router.get("/", (req, res) => {
 });
 
 router.get("/company", (req, res) => {
-  const company = new Company("Neuralx", [
-    {
-      collaborator: "Allisson",
-      job: "Cofundador",
-      salary: "100000",
-    },
-    {
-      collaborator: "João",
-      job: "Gerente",
-      salary: "15000",
-    },
-  ]);
+  const company = new Company("Neuralx");
+
   const owner = {
     ...company,
     newCompany: "Hixx",
   };
 
   res.status(200).send(owner);
-  console.log(owner.name);
+});
+
+router.post("/company", (req, res) => {
+  const company = new Company("Hixx");
+  const { collaborator, job, salary } = req.body;
+
+  if (collaborator && job && salary) {
+    company.addCollaborator({
+      collaborator,
+      job,
+      salary,
+      date: new Date(),
+    });
+    return res.status(200).send({ company });
+  } else if (!collaborator && !job && !salary) {
+    return res.status(400).send({
+      required: "collaborator, job, salary",
+    });
+  } else if (!salary) {
+    return res.status(400).send({
+      error: "Salary required",
+    });
+  } else if (!job) {
+    res.status(400).send({
+      error: "Job required",
+    });
+  } else {
+    res.status(400).send({
+      error: "Collaborator required",
+    });
+  }
 });
 
 export { router };
