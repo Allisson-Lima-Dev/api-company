@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "generate": "npx prisma generate",
+    "generate": "docker compose up -d && npx prisma generate && npx prisma migrate dev Company",
     "start": "yarn run generate && tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "build": "yarn run generate",
     "dev": "yarn run generate && ts-node-dev src/server.ts"
