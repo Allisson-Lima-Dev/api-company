@@ -13,21 +13,6 @@ interface user {
 const router = Router();
 const prisma = new PrismaClient();
 
-async function main() {
-    const allUsers = await prisma.company.findMany();
-    console.log(allUsers);
-}
-
-main()
-    .then(async () => {
-        await prisma.$disconnect();
-    })
-    .catch(async (e) => {
-        console.error(e);
-        await prisma.$disconnect();
-        process.exit(1);
-    });
-
 router.post('/projects', (req, res) => {
     const projectItems = req.body as user;
     const project = new Project(projectItems);
