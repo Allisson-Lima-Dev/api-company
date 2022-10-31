@@ -13,7 +13,7 @@ RUN yarn install
 COPY . .
 
 # Open Port
-EXPOSE 5432
+EXPOSE 3000
 
 # Docker Command to Start Service
 CMD [ "yarn", "start" ]
