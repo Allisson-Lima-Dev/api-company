@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "generate": "docker compose up -d && npx prisma generate && npx prisma migrate dev Company",
+    "generate": "npx prisma generate",
     "start": "yarn run generate && tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "build": "yarn run generate",
-    "dev": "yarn run generate && ts-node-dev src/server.ts"
+    "dev": "yarn run generate && ts-node-dev src/server.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
