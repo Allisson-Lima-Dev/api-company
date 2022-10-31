@@ -4,7 +4,7 @@ services:
   app:
     build: .
     container_name: setup-nodejs
-    command: sh -c "yarn install && npx prisma migrate dev Company && yarn start"
+    command: yarn start
     volumes:
       - ./:/usr/src/app
     environment:
