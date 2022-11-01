@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "generate": "npx prisma generate",
-    "start": "yarn run generate && tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
+    "start": "docker-compose build && docker-compose up",
     "build": "yarn run generate",
     "dev": "yarn run generate && ts-node-dev src/server.ts",
     "postinstall": "prisma generate"
