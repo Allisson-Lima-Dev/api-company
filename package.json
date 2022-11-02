@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "generate": "npx prisma generate",
-    "start": "docker-compose build && docker-compose up",
+    "start": "docker-compose build && docker-compose up && tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "build": "yarn run generate",
     "dev": "yarn run generate && ts-node-dev src/server.ts",
     "postinstall": "prisma generate"
@@ -21,7 +21,9 @@
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^9.1.7",
     "@types/cors": "^2.8.12",
+    "prisma-erd-generator": "^1.2.2",
     "ts-node-dev": "^2.0.0"
   }
 }
