@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "generate": "npx prisma generate",
-    "start": "yarn run generate && tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
-    "build": "yarn run generate",
+    "start": "tsnd --transpile-only --respawn --ignore-watch node_modules src/server.ts",
     "dev": "yarn run generate && ts-node-dev src/server.ts",
     "postinstall": "prisma generate"
   },
