@@ -11,12 +11,13 @@ generator erd {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://admin:admin@postgres-container:5432/mydb?schema=public"
+  url      = "DATABASE_URL"
 }
 
 model Company {
-  id           Int    @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   collaborator String
   job          String
   salary       String
+  created_at   DateTime @default(now())
 }
