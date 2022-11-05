@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './database/prismaClient';
 import { Company } from './entities/company';
 import { Project } from './entities/project';
 interface user {
@@ -11,7 +11,6 @@ interface user {
     certifacateURL: string;
 }
 const router = Router();
-const prisma = new PrismaClient();
 
 router.post('/projects', (req, res) => {
     const projectItems = req.body as user;
@@ -120,7 +119,7 @@ router.put('/company/:id', async (req, res) => {
 });
 
 router.delete('/company/:id', async (req, res) => {
-    const id = Number(req.params.id);
+    const id = req.params.id
 
     const checkId = await prisma.company.findUnique({
         where: {
