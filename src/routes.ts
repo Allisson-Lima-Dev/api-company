@@ -82,7 +82,7 @@ router.post('/company', async (req, res) => {
 
 router.put('/company/:id', async (req, res) => {
     const { collaborator, job, salary } = req.body;
-    const id = Number(req.params.id);
+    const id = req.params.id
 
     const checkId = await prisma.company.findUnique({
         where: {
